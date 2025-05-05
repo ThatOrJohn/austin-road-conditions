@@ -21,7 +21,10 @@ export const celsiusToFahrenheit = (celsius: string): number => {
   return Math.round((c * 9) / 5 + 32);
 };
 
-export const getMarkerIcon = (gripText: string) => {
+export const getMarkerIcon = (
+  gripText: string,
+  isDarkMode: boolean = false
+) => {
   const colors: { [key: string]: string } = {
     GOOD: "#28a745", // Green
     FAIR: "#ffc107", // Yellow
@@ -30,11 +33,13 @@ export const getMarkerIcon = (gripText: string) => {
   };
 
   const color = colors[gripText.toUpperCase()] || colors.UNKNOWN;
+  const textColor = isDarkMode ? "#e0e0e0" : "#333";
+  const shadowColor = isDarkMode ? "#333" : "#fff";
 
   const html = `
     <div style="display: flex; align-items: center; white-space: nowrap;">
-      <div style="width: 12px; height: 12px; background-color: ${color}; border-radius: 50%; margin-right: 5px; border: 2px solid #fff; box-shadow: 0 0 2px rgba(0,0,0,0.5);"></div>
-      <span style="font-size: 12px; color: #333; font-weight: bold; text-shadow: 0 0 2px #fff;">${gripText}</span>
+      <div style="width: 12px; height: 12px; background-color: ${color}; border-radius: 50%; margin-right: 5px; border: 2px solid ${shadowColor}; box-shadow: 0 0 2px rgba(0,0,0,0.5);"></div>
+      <span style="font-size: 12px; color: ${textColor}; font-weight: bold; text-shadow: 0 0 2px ${shadowColor};">${gripText}</span>
     </div>
   `;
 
